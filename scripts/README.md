@@ -1,4 +1,5 @@
 # scripts/
+Part of EspHomeDeviceBuilds.
 
 Local helper scripts for this repository. These scripts are meant to be run on your machine
 and may output files that contain secrets. Do not commit generated outputs.

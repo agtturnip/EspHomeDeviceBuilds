@@ -1,4 +1,4 @@
-# ha_1pt_calibrated_env_boards
+# EspHomeDeviceBuilds
 
 ESPHome packages-based composition for multiple ESP32 boards and environmental sensors.
 

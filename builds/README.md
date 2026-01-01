@@ -1,4 +1,5 @@
 # builds/
+Part of EspHomeDeviceBuilds.
 
 Per-device folders. Each device folder should contain:
 - `build.yaml` with substitutions and package includes.

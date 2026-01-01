@@ -1,0 +1,8 @@
+.DS_Store
+.esphome/
+secrets.yaml
+AGENTS.md
+builds/**/export/*.yaml
+builds/**/export/*.yml
+*.bin
+*.elf

@@ -1,0 +1,23 @@
+# Template build: copy this folder and customize for a new device.
+# Required changes are marked with "CHANGE ME".
+# Export a standalone YAML (for ESPHome Builder) with:
+# scripts/export_build.sh builds/<device>
+
+substitutions:
+  device_name: "template-device" # CHANGE ME: unique, machine-friendly name.
+  friendly_name: "Template Device" # CHANGE ME: human-friendly name shown in HA.
+  # CHANGE ME if you include ENV III feature below:
+  # - Set to the I2C bus id defined by your board/expander (for example: bus_a).
+  env_iii_i2c_bus: "bus_a"
+
+packages:
+  # Core shared logic (do not edit; override via substitutions above).
+  core: !include ../../core/base.yaml
+
+  # CHANGE ME: choose the correct manufacturer + board.
+  board: !include ../../boards/M5Stack/M5NanoC6.yaml
+
+  # CHANGE ME: include the feature(s) you actually need.
+  env: !include ../../features/M5Stack/ENV_III_1pt_cal.yaml
+  # Example of adding another feature:
+  # feature2: !include ../../features/<Manufacturer>/<Feature>.yaml

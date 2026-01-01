@@ -1,0 +1,11 @@
+# Device build: update substitutions when cloning this template.
+substitutions:
+  device_name: "m5nanoc6-with-1pt-env-iii" # Unique per device.
+  friendly_name: "M5NanoC6 with 1pt ENV III" # Shows in HA.
+  env_iii_i2c_bus: "bus_a" # Must match the board/expander I2C bus id. Reference /Boards first before setting/changing
+
+# Package composition: core + board + features.
+packages:
+  core: !include ../../core/base.yaml
+  board: !include ../../boards/M5Stack/M5NanoC6.yaml
+  env: !include ../../features/M5Stack/ENV_III_1pt_cal.yaml

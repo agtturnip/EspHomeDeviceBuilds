@@ -1,0 +1,13 @@
+# Board profile: hardware-specific settings only.
+esp32:
+  board: esp32-c6-devkitc-1
+  framework:
+    type: esp-idf
+
+# Primary I2C bus for this board.
+# Features refer to the bus by id (set via build substitutions).
+i2c:
+  sda: 2 # G2 on sticker
+  scl: 1 # G1 on sticker
+  scan: true
+  id: bus_a # Use this id in build substitutions (for example: env_iii_i2c_bus).

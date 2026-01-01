@@ -1,0 +1,28 @@
+# Base package: shared, board-agnostic settings.
+# Override these substitutions in each build file.
+substitutions:
+  device_name: "env-template" # Required per build: machine-friendly device name.
+  friendly_name: "Env Template" # Required per build: human-friendly name in HA.
+
+# Device identity (kept stable by substitutions).
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+
+# Local logging for troubleshooting.
+logger:
+
+# Home Assistant API with encryption key from secrets.
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+# OTA updates using shared secret.
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+# Wi-Fi credentials from secrets.
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password

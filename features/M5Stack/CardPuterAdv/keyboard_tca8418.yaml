@@ -1,0 +1,8 @@
+# TCA8418 keyboard controller (56-key).
+# ESPHome 2025.12.1 does not include a TCA8418 component.
+# Keep these substitutions for a future custom/external component.
+
+substitutions:
+  cardputer_kb_i2c_bus: "bus_a" # I2C bus for the keyboard controller.
+  cardputer_kb_addr: "0x34" # From I2C scan; TCA8418 default address.
+  cardputer_kb_int_pin: "11"

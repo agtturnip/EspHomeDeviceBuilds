@@ -1,0 +1,14 @@
+# Device build: CardPuterAdv + ENV III + basic display UI.
+# Required changes are marked with "CHANGE ME".
+
+substitutions:
+  device_name: "cardputeradv-with-1pt-env-iii" # CHANGE ME: unique, machine-friendly name.
+  friendly_name: "CardPuterAdv with 1pt ENV III" # CHANGE ME: human-friendly name shown in HA.
+  env_iii_i2c_bus: "bus_grove" # CHANGE ME if the ENV III is on a different I2C bus.
+
+
+packages:
+  core: !include ../../core/base.yaml
+  board: !include ../../boards/M5Stack/CardPuterAdv.yaml
+  env: !include ../../features/M5Stack/ENV_III_1pt_cal.yaml
+  ui: !include ../../features/M5Stack/CardPuterAdv/env_iii_display.yaml

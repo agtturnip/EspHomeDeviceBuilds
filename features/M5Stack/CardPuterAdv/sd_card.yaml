@@ -1,0 +1,10 @@
+# microSD card (SPI).
+# ESPHome 2025.12.1 does not include a general SD card component.
+# Keep these substitutions for a future custom/external component.
+
+substitutions:
+  cardputer_sd_spi_id: "spi_sd" # SPI bus id defined by the board.
+  cardputer_sd_cs_pin: "12"
+  cardputer_sd_mosi_pin: "14"
+  cardputer_sd_clk_pin: "40"
+  cardputer_sd_miso_pin: "39"

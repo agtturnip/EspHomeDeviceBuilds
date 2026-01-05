@@ -1,6 +1,11 @@
 # ENV III sensor package (SHT3xD + QMP6988).
 # Required substitution (set in build): env_iii_i2c_bus (I2C bus id).
 
+substitutions:
+  env_iii_temp_id: "env_temp"
+  env_iii_hum_id: "env_hum"
+  env_iii_press_id: "env_press"
+
 # Persistent calibration offsets stored in flash.
 globals:
   - id: temp_offset
@@ -49,6 +54,7 @@ sensor:
     address: 0x44
     temperature:
       name: Temperature
+      id: ${env_iii_temp_id}
       accuracy_decimals: 2
       filters:
         - lambda: |-
@@ -63,6 +69,7 @@ sensor:
       state_class: measurement
     humidity:
       name: Humidity
+      id: ${env_iii_hum_id}
       accuracy_decimals: 2
       filters:
         - lambda: |-
@@ -82,6 +89,7 @@ sensor:
     address: 0x70
     pressure:
       name: Pressure
+      id: ${env_iii_press_id}
       filters:
         - multiply: 0.02953
         - or:

@@ -1,0 +1,113 @@
+# CardPuterAdv display UI for ENV III sensors.
+# Requires env sensor ids from features/M5Stack/ENV_III_1pt_cal.yaml.
+
+substitutions:
+  cardputer_graph_width: "240"
+  cardputer_graph_height: "135"
+
+# Tracks which display page is active.
+globals:
+  - id: page_index
+    type: int
+    restore_value: no
+    initial_value: "0"
+
+# Auto-cycle between pages so no input device is required.
+interval:
+  - interval: 30s # CHANGE ME: page rotation period.
+    then:
+      - lambda: |-
+          id(page_index) = (id(page_index) + 1) % 2;
+          if (id(page_index) == 0) {
+            id(cardputer_lcd).show_page(id(page_env));
+          } else {
+            id(cardputer_lcd).show_page(id(page_graph));
+          }
+      - component.update: cardputer_lcd
+
+display:
+  - platform: st7789v
+    id: cardputer_lcd
+    model: ${cardputer_lcd_model}
+    width: ${cardputer_lcd_width}
+    height: ${cardputer_lcd_height}
+    offset_width: ${cardputer_lcd_offset_width}
+    offset_height: ${cardputer_lcd_offset_height}
+    rotation: ${cardputer_lcd_rotation}
+    cs_pin: ${cardputer_lcd_cs_pin}
+    dc_pin: ${cardputer_lcd_dc_pin}
+    reset_pin: ${cardputer_lcd_reset_pin}
+    backlight_pin: ${cardputer_lcd_backlight_pin}
+    spi_id: ${cardputer_lcd_spi_id}
+    update_interval: ${cardputer_lcd_update_interval}
+    pages:
+      - id: page_env
+        lambda: |-
+          it.printf(8, 8, id(font_small), "Temp");
+          it.printf(120, 8, id(font_large), id(temp_color), "%.1f °F", id(${env_iii_temp_id}).state);
+          it.printf(8, 48, id(font_small), "Hum");
+          it.printf(120, 48, id(font_large), id(hum_color), "%.1f %%", id(${env_iii_hum_id}).state);
+          it.printf(8, 88, id(font_small), "Press");
+          it.printf(120, 88, id(font_large), id(press_color), "%.2f inHg", id(${env_iii_press_id}).state);
+      - id: page_graph
+        lambda: |-
+          const int w = ${cardputer_graph_width};
+          const int h = ${cardputer_graph_height};
+          const int x0 = 0;
+          const int y0 = 0;
+          for (int x = 0; x <= w; x += 40) {
+            it.line(x0 + x, y0, x0 + x, y0 + h - 1, id(grid_gray));
+          }
+          for (int y = 0; y <= h; y += 34) {
+            it.line(x0, y0 + y, x0 + w - 1, y0 + y, id(grid_gray));
+          }
+          it.graph(x0, y0, id(env_graph));
+          it.printf(5, 2, id(font_tiny), "100");
+          it.printf(5, 60, id(font_tiny), "50");
+          it.printf(6, 112, id(font_tiny), "0");
+          it.line(6, 124, 18, 124, id(temp_color));
+          it.printf(22, 120, id(font_tiny), "Temp F");
+          it.line(80, 124, 92, 124, id(hum_color));
+          it.printf(96, 120, id(font_tiny), "Hum %%");
+          it.printf(160, 120, id(font_tiny), "30m");
+          it.printf(210, 120, id(font_tiny), "now");
+
+font:
+  - file: "gfonts://Roboto"
+    id: font_small
+    size: 14
+  - file: "gfonts://Roboto"
+    id: font_large
+    size: 22
+  - file: "gfonts://Roboto"
+    id: font_tiny
+    size: 10
+
+graph:
+  - id: env_graph
+    duration: 30min
+    width: ${cardputer_graph_width}
+    height: ${cardputer_graph_height}
+    border: false
+    traces:
+      - sensor: ${env_iii_temp_id}
+        color: temp_color
+        line_thickness: 3
+      - sensor: ${env_iii_hum_id}
+        color: hum_color
+        line_thickness: 3
+      - sensor: ${env_iii_press_id}
+        color: press_color
+        line_thickness: 3
+
+color:
+  - id: temp_color
+    red: 100%
+  - id: hum_color
+    blue: 100%
+  - id: press_color
+    green: 100%
+  - id: grid_gray
+    red: 40%
+    green: 40%
+    blue: 40%

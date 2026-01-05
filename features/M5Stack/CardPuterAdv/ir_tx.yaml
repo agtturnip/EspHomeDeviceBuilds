@@ -1,0 +1,11 @@
+# IR emitter on GPIO44.
+
+substitutions:
+  cardputer_ir_tx_pin: "44"
+  cardputer_ir_carrier_duty: "50%"
+
+remote_transmitter:
+  - id: cardputer_ir_tx
+    pin: ${cardputer_ir_tx_pin}
+    carrier_duty_percent: ${cardputer_ir_carrier_duty}
+    non_blocking: true

@@ -1,0 +1,48 @@
+# Board profile: hardware-specific settings only.
+# Device: M5Stack Cardputer-Adv (Stamp-S3A / ESP32-S3FN8).
+
+# Display geometry/pin defaults (used by CardPuterAdv display features).
+substitutions:
+  cardputer_lcd_model: "CUSTOM"
+  cardputer_lcd_width: "135"
+  cardputer_lcd_height: "240"
+  cardputer_lcd_offset_width: "40"
+  cardputer_lcd_offset_height: "52"
+  cardputer_lcd_rotation: "270"
+  cardputer_lcd_spi_id: "spi_lcd"
+  cardputer_lcd_cs_pin: "37"
+  cardputer_lcd_dc_pin: "34"
+  cardputer_lcd_reset_pin: "33"
+  cardputer_lcd_backlight_pin: "38"
+  cardputer_lcd_update_interval: "10s"
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+# Primary I2C bus for internal devices (audio codec, IMU, keyboard) and EXT port.
+# Features refer to the bus by id (set via build substitutions).
+i2c:
+  - id: bus_a # Use this id in build substitutions (for example: env_iii_i2c_bus).
+    sda: 8
+    scl: 9
+    scan: true
+
+  # Grove port I2C bus (HY2.0-4P).
+  - id: bus_grove
+    sda: 2
+    scl: 1
+    scan: true
+
+# SPI bus for the built-in LCD (ST7789V2).
+spi:
+  - id: spi_lcd
+    clk_pin: 36
+    mosi_pin: 35
+
+  # SPI bus for microSD and EXT SPI pins.
+  - id: spi_sd
+    clk_pin: 40
+    mosi_pin: 14
+    miso_pin: 39

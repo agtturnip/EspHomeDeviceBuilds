@@ -56,7 +56,11 @@ prompt_yes_no() {
   local reply
 
   echo "$prompt" >&2
-  read -r reply
+  if [[ -r /dev/tty ]]; then
+    read -r reply < /dev/tty
+  else
+    read -r reply
+  fi
   case "$reply" in
     y|Y|yes|YES)
       return 0
@@ -231,7 +235,11 @@ select_build_dir() {
     printf "  %d) %s\n" "$((i + 1))" "${dirs[$i]#"$root_dir"/}" >&2
   done
 
-  read -r selection
+  if [[ -r /dev/tty ]]; then
+    read -r selection < /dev/tty
+  else
+    read -r selection
+  fi
   if [[ ! "$selection" =~ ^[0-9]+$ ]] || ((selection < 1 || selection > ${#dirs[@]})); then
     echo "Invalid selection." >&2
     exit 1
@@ -249,7 +257,11 @@ Choose an action:
   3) Compile and upload to device (esphome run)
   4) All of the above
 MENU
-  read -r action
+  if [[ -r /dev/tty ]]; then
+    read -r action < /dev/tty
+  else
+    read -r action
+  fi
   echo "$action"
 }
 

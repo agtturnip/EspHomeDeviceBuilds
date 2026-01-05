@@ -1,0 +1,34 @@
+# ST7789V2 1.14" LCD (240x135).
+# Update substitutions in build.yaml if orientation or offsets need tweaking.
+
+substitutions:
+  cardputer_lcd_spi_id: "spi_lcd" # SPI bus id defined by the board.
+  cardputer_lcd_model: "CUSTOM" # Use CUSTOM so width/height/offsets are explicit.
+  cardputer_lcd_width: "135" # Visible width in pixels.
+  cardputer_lcd_height: "240" # Visible height in pixels.
+  cardputer_lcd_offset_width: "40" # X offset for 135x240 panels.
+  cardputer_lcd_offset_height: "52" # Y offset for 135x240 panels.
+  cardputer_lcd_rotation: "270" # Rotate to landscape orientation.
+  cardputer_lcd_cs_pin: "37"
+  cardputer_lcd_dc_pin: "34"
+  cardputer_lcd_reset_pin: "33"
+  cardputer_lcd_backlight_pin: "38"
+  cardputer_lcd_update_interval: "5s"
+
+display:
+  - platform: st7789v
+    id: cardputer_lcd
+    model: ${cardputer_lcd_model}
+    width: ${cardputer_lcd_width}
+    height: ${cardputer_lcd_height}
+    offset_width: ${cardputer_lcd_offset_width}
+    offset_height: ${cardputer_lcd_offset_height}
+    rotation: ${cardputer_lcd_rotation}
+    cs_pin: ${cardputer_lcd_cs_pin}
+    dc_pin: ${cardputer_lcd_dc_pin}
+    reset_pin: ${cardputer_lcd_reset_pin}
+    backlight_pin: ${cardputer_lcd_backlight_pin}
+    spi_id: ${cardputer_lcd_spi_id}
+    update_interval: ${cardputer_lcd_update_interval}
+    lambda: |-
+      // TODO: Add display drawing here.

@@ -1,0 +1,19 @@
+# Battery voltage ADC on GPIO10.
+# Adjust cardputer_batt_divider to match the onboard voltage divider.
+
+substitutions:
+  cardputer_batt_adc_pin: "10"
+  cardputer_batt_divider: "2.0" # CHANGE ME: scale raw voltage to actual battery voltage.
+  cardputer_batt_update: "60s"
+
+sensor:
+  - platform: adc
+    pin: ${cardputer_batt_adc_pin}
+    name: "Battery Voltage"
+    attenuation: 11db
+    update_interval: ${cardputer_batt_update}
+    accuracy_decimals: 2
+    device_class: voltage
+    state_class: measurement
+    filters:
+      - multiply: ${cardputer_batt_divider}

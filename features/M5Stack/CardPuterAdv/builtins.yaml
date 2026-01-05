@@ -1,0 +1,11 @@
+# Built-in peripherals bundle for M5Stack CardPuterAdv.
+# Include this file in a build to pull in the standard onboard devices.
+# Display is intentionally not included; UI features define the display.
+
+packages:
+  keyboard: !include ./keyboard_tca8418.yaml
+  audio: !include ./audio_es8311.yaml
+  imu: !include ./imu_bmi270.yaml
+  ir_tx: !include ./ir_tx.yaml
+  battery: !include ./battery_adc.yaml
+  sd_card: !include ./sd_card.yaml
